@@ -46,7 +46,7 @@ winning_times |>
   scale_y_continuous(breaks = scales::pretty_breaks(),
                      expand = expansion(mult = c(0, 0.05))) +
   theme_mkw() +
-  labs(x = "Player", y = "Victores",
+  labs(x = "Player", y = "Victories",
        title = "PlusWord victories",
        subtitle = str_c(start_date, " to ", end_date))
 
