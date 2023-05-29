@@ -14,6 +14,13 @@ winning_times <- df |>
   filter(time == min(time)) |> 
   ungroup()
 
+win_streaks <- winning_times |> 
+  arrange(date) |> 
+  pull(sender) |> 
+  rle()
+
+win_streaks <- tibble(sender = win_streaks$values, streak = win_streaks$lengths)
+
 start_date <- winning_times |> pull(date) |> min() |> date()
 end_date <- winning_times |> pull(date) |> max() |> date()
   
