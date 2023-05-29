@@ -52,13 +52,6 @@ winning_times |>
 
 
 df |> 
-  ggplot(aes(x = date, y = time)) +
-  geom_point(aes(colour = sender)) +
-  geom_smooth(method = "lm") +
-  theme_mkw()
-
-
-df |> 
   group_by(sender) |> 
   summarise(best_time = min(time)) |> 
   arrange(best_time) |> 
