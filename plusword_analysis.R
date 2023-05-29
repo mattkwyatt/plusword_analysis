@@ -64,3 +64,21 @@ df |>
   labs(x = "Player", y = "Time (seconds)",
        title = "Fastest PlusWord finishing time",
        subtitle = str_c(start_date, " to ", end_date))
+
+
+
+winning_times |>
+  mutate(win_drought = now() - date) |>
+  group_by(sender) |>
+  summarise(win_drought = min(win_drought)) |>
+  mutate(win_drought = round(as.numeric(win_drought, units = "days"), 0)) |>
+  arrange(win_drought) |> 
+  ggplot(aes(x = fct_reorder(sender, .x = win_drought), y = win_drought)) +
+  geom_col() +
+  geom_text(aes(label = win_drought), nudge_y = 1) +
+  scale_y_continuous(breaks = scales::pretty_breaks(),
+                     expand = expansion(mult = c(0, 0.05))) +
+  theme_mkw() +
+  labs(x = "Player", y = "Time (days)",
+       title = "Time since last PlusWord victory",
+       subtitle = str_c(start_date, " to ", end_date))
