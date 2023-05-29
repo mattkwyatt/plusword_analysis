@@ -3,7 +3,9 @@ library(lubridate)
 
 source("https://raw.githubusercontent.com/mattkwyatt/ggplot_themes/master/theme_mkw.R")
 
-df <- read_csv("../../Python/plusword/output/plusword1_times.csv", col_types = c("Tcc"))
+bar_colour <- "#20C2AA"
+
+ df <- read_csv("../../Python/plusword/output/plusword1_times.csv", col_types = c("Tcc"))
 
 df <- df |>
   mutate(time = str_c(rep("00:", length(df$time)), time),
@@ -41,7 +43,7 @@ winning_times |>
   ungroup() |> 
   arrange(wins) |> 
   ggplot(aes(x = fct_reorder(sender, .x = wins, .fun = "max"), y = wins)) +
-  geom_col() +
+  geom_col(fill = bar_colour, colour = "black") +
   geom_text(aes(label = wins), nudge_y = 0.5) +
   scale_y_continuous(breaks = scales::pretty_breaks(),
                      expand = expansion(mult = c(0, 0.05))) +
@@ -56,7 +58,7 @@ df |>
   summarise(best_time = min(time)) |> 
   arrange(best_time) |> 
   ggplot(aes(x = fct_reorder(sender, .x = best_time), y = best_time)) +
-  geom_col() +
+  geom_col(fill = bar_colour, colour = "black") +
   geom_text(aes(label = best_time), nudge_y = 2) +
   scale_y_continuous(breaks = scales::pretty_breaks(),
                      expand = expansion(mult = c(0, 0.05))) +
@@ -74,7 +76,7 @@ winning_times |>
   mutate(win_drought = round(as.numeric(win_drought, units = "days"), 0)) |>
   arrange(win_drought) |> 
   ggplot(aes(x = fct_reorder(sender, .x = win_drought), y = win_drought)) +
-  geom_col() +
+  geom_col(fill = bar_colour, colour = "black") +
   geom_text(aes(label = win_drought), nudge_y = 1) +
   scale_y_continuous(breaks = scales::pretty_breaks(),
                      expand = expansion(mult = c(0, 0.05))) +
