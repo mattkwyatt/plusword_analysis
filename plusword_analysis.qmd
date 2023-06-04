@@ -47,7 +47,7 @@ end_date <- winning_times |> pull(date) |> max() |> date()
 ```{r ranking}
 ranking <- df |>
   group_by(date(date)) |>
-  mutate(rank = rank(time)) |>
+  mutate(rank = rank(time, ties.method = "min")) |>
   ungroup() |>
   group_by(sender, rank) |>
   summarise(rank_count = n()) |>
