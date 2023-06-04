@@ -5,7 +5,7 @@ source("https://raw.githubusercontent.com/mattkwyatt/ggplot_themes/master/theme_
 
 bar_colour <- "#20C2AA"
 
- df <- read_csv("../../Python/plusword/output/plusword1_times.csv", col_types = c("Tcc"))
+df <- read_csv("../../Python/plusword/output/plusword1_times.csv", col_types = c("Tcc"))
 
 df <- df |>
   mutate(time = str_c(rep("00:", length(df$time)), time),
@@ -68,7 +68,6 @@ df |>
        subtitle = str_c(start_date, " to ", end_date))
 
 
-
 winning_times |>
   mutate(win_drought = now() - date) |>
   group_by(sender) |>
@@ -84,3 +83,4 @@ winning_times |>
   labs(x = "Player", y = "Time (days)",
        title = "Time since last PlusWord victory",
        subtitle = str_c(start_date, " to ", end_date))
+
