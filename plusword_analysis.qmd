@@ -1,0 +1,124 @@
+---
+title: "PlusWord Analysis"
+format: html
+editor_options: 
+  chunk_output_type: console
+execute:
+  echo: false
+  warning: false
+---
+
+```{r constants}
+library(tidyverse)
+library(lubridate)
+
+source("https://raw.githubusercontent.com/mattkwyatt/ggplot_themes/master/theme_mkw.R")
+
+bar_colour <- "#20C2AA"
+```
+
+```{r data_processing}
+df <- read_csv("../../Python/plusword/output/plusword1_times.csv", col_types = c("Tcc"))
+
+df <- df |>
+  mutate(time = str_c(rep("00:", length(df$time)), time),
+         time = hms::parse_hms(time))
+
+winning_times <- df |> 
+  group_by(date(date)) |> 
+  filter(time == min(time)) |> 
+  ungroup()
+
+win_streaks <- winning_times |> 
+  arrange(date) |> 
+  pull(sender) |> 
+  rle()
+
+win_streaks <- tibble(sender = win_streaks$values, streak = win_streaks$lengths)
+
+start_date <- winning_times |> pull(date) |> min() |> date()
+end_date <- winning_times |> pull(date) |> max() |> date()
+```
+
+## Overall Ranking
+
+```{r ranking}
+ranking <- df |>
+  group_by(date(date)) |>
+  mutate(rank = rank(time)) |>
+  ungroup() |>
+  group_by(sender, rank) |>
+  summarise(rank_count = n()) |>
+  pivot_wider(names_from = rank, values_from = rank_count, values_fill = 0) |>
+  mutate(Games = rowSums(across(where(is.numeric)))) |>
+  arrange(desc(`1`)) |> 
+  rename(Player = sender)
+
+knitr::kable(ranking)
+```
+
+```{r total_wins}
+winning_times |> 
+  group_by(sender) |> 
+  summarise(wins = n()) |> 
+  ungroup() |> 
+  arrange(wins) |> 
+  ggplot(aes(x = fct_reorder(sender, .x = wins, .fun = "max"), y = wins)) +
+  geom_col(fill = bar_colour, colour = "black") +
+  geom_text(aes(label = wins), nudge_y = 0.5) +
+  scale_y_continuous(breaks = scales::pretty_breaks(),
+                     expand = expansion(mult = c(0, 0.05))) +
+  theme_mkw() +
+  labs(x = "Player", y = "Victories",
+       title = "PlusWord victories",
+       subtitle = str_c(start_date, " to ", end_date))
+```
+
+## Player Times
+
+```{r time_boxplots}
+df |>
+  filter(time < hms::hms(minutes = 10)) |> 
+  ggplot(aes(x = fct_reorder(sender, .x = time, .fun = "median"), y = time)) +
+  geom_boxplot() +
+  theme_mkw() +
+  labs(x = "Player", y = "Time (minutes)",
+       title = "PlusWord finishing times (times over 10 minutes ignored)",
+       subtitle = str_c(start_date, " to ", end_date))
+```
+
+```{r fastest_time}
+df |> 
+  group_by(sender) |> 
+  summarise(best_time = min(time)) |> 
+  arrange(best_time) |> 
+  ggplot(aes(x = fct_reorder(sender, .x = best_time), y = best_time)) +
+  geom_col(fill = bar_colour, colour = "black") +
+  geom_text(aes(label = best_time), nudge_y = 2) +
+  scale_y_continuous(breaks = scales::pretty_breaks(),
+                     expand = expansion(mult = c(0, 0.05))) +
+  theme_mkw() +
+  labs(x = "Player", y = "Time (seconds)",
+       title = "Fastest PlusWord finishing time",
+       subtitle = str_c(start_date, " to ", end_date))
+```
+
+## Time since last win
+
+```{r days_since_last_win}
+winning_times |>
+  mutate(win_drought = now() - date) |>
+  group_by(sender) |>
+  summarise(win_drought = min(win_drought)) |>
+  mutate(win_drought = round(as.numeric(win_drought, units = "days"), 0)) |>
+  arrange(win_drought) |> 
+  ggplot(aes(x = fct_reorder(sender, .x = win_drought), y = win_drought)) +
+  geom_col(fill = bar_colour, colour = "black") +
+  geom_text(aes(label = win_drought), nudge_y = 1) +
+  scale_y_continuous(breaks = scales::pretty_breaks(),
+                     expand = expansion(mult = c(0, 0.05))) +
+  theme_mkw() +
+  labs(x = "Player", y = "Time (days)",
+       title = "Time since last PlusWord victory",
+       subtitle = str_c(start_date, " to ", end_date))
+```
