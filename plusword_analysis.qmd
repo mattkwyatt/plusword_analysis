@@ -15,10 +15,12 @@ library(lubridate)
 source("https://raw.githubusercontent.com/mattkwyatt/ggplot_themes/master/theme_mkw.R")
 
 bar_colour <- "#20C2AA"
+
+times_filename <- "plusword2_times.csv"
 ```
 
 ```{r data_processing}
-df <- read_csv("../../Python/plusword/output/plusword1_times.csv", col_types = c("Tcc"))
+df <- read_csv(str_c("../../Python/plusword/output/", times_filename), col_types = c("Tcc"))
 
 df <- df |>
   mutate(time = str_c(rep("00:", length(df$time)), time),
