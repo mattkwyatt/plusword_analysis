@@ -90,6 +90,27 @@ df |>
        subtitle = str_c(start_date, " to ", end_date))
 ```
 
+```{r mean_time_delta}
+mean_times <- df |>
+  group_by(date(date)) |>
+  summarise(mean_time = mean(time)) |> 
+  rename(date = `date(date)`)
+
+df |> 
+  mutate(date = date(date)) |> 
+  left_join(mean_times, by = "date") |> 
+  mutate(mean_time_delta = time - mean_time,
+         pct_delta = as.numeric(mean_time_delta) / as.numeric(mean_time)) |>
+  ggplot(aes(x = fct_reorder(sender, .x = pct_delta, .fun = "median"), y = pct_delta)) +
+  geom_hline(yintercept = 0, lty = 2) +
+  geom_boxplot() +
+  scale_y_continuous(labels = scales::percent_format()) +
+  theme_mkw(grid = TRUE) +
+  labs(x = "Player", y = "Percentage difference to mean time (%)",
+       title = "PlusWord finishing times percentage difference to mean time",
+       subtitle = str_c(start_date, " to ", end_date))
+```
+
 ```{r fastest_time}
 df |> 
   group_by(sender) |> 
