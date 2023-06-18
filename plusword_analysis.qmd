@@ -83,7 +83,8 @@ df |>
   filter(time < hms::hms(minutes = 10)) |> 
   ggplot(aes(x = fct_reorder(sender, .x = time, .fun = "median"), y = time)) +
   geom_boxplot() +
-  theme_mkw() +
+  scale_y_time(labels = scales::time_format(format = "%M:%S")) +
+  theme_mkw(grid = TRUE) +
   labs(x = "Player", y = "Time (minutes)",
        title = "PlusWord finishing times (times over 10 minutes ignored)",
        subtitle = str_c(start_date, " to ", end_date))
