@@ -109,7 +109,7 @@ df |>
 
 ```{r days_since_last_win}
 winning_times |>
-  mutate(win_drought = now() - date) |>
+  mutate(win_drought = max(date) - date) |>
   group_by(sender) |>
   summarise(win_drought = min(win_drought)) |>
   mutate(win_drought = round(as.numeric(win_drought, units = "days"), 0)) |>
