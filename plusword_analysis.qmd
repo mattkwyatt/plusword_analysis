@@ -1,6 +1,9 @@
 ---
 title: "PlusWord Analysis"
-format: gfm
+format:
+  gfm:
+    output-file: "README"
+    output-ext:  "md"
 editor_options: 
   chunk_output_type: console
 execute:
