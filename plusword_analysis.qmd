@@ -152,6 +152,22 @@ df |>
        subtitle = str_c(start_date, " to ", end_date))
 ```
 
+```{r fastest_time_evolution}
+df |> 
+  mutate(record_time = as.numeric(df$time) |> cummin()) |> 
+  filter(as.numeric(time) == record_time,
+         time < hms::hms(minutes = 1)) |> 
+  ggplot(aes(x = date, y = time)) +
+  geom_step() +
+  geom_point(aes(colour = sender), size = 5) +
+  scale_y_continuous(breaks = scales::pretty_breaks()) +
+  theme_mkw(grid = TRUE) +
+  labs(x = "Date", y = "Time (seconds)", colour = "Player",
+       title = "Record PlusWord finishing time",
+       subtitle = str_c(start_date, " to ", end_date))
+```
+
+
 ## Time since last win
 
 ```{r days_since_last_win}
