@@ -1,6 +1,6 @@
 ---
 title: "PlusWord Analysis"
-format: html
+format: gfm
 editor_options: 
   chunk_output_type: console
 execute:
