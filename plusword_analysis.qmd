@@ -76,6 +76,31 @@ winning_times |>
        subtitle = str_c(start_date, " to ", end_date))
 ```
 
+
+```{r total_wins_over_time}
+total_wins <- winning_times |> 
+  group_by(date, sender) |> 
+  summarise(wins = n()) |>
+  ungroup() |> 
+  group_by(sender) |> 
+  mutate(total_wins = wins |> cumsum()) |> 
+  select(-wins)
+
+total_wins |> 
+  rbind(tibble(sender = unique(total_wins$sender), date = min(total_wins$date)-1, total_wins = 0)) |> 
+  rbind(total_wins |> group_by(sender) |> summarise(total_wins = max(total_wins)) |> mutate(date = now())) |> 
+  ggplot(aes(x = date, y = total_wins, colour = sender)) +
+  geom_step() +
+  #geom_point()
+  scale_y_continuous(breaks = scales::pretty_breaks(),
+                     expand = expansion(mult = c(0, 0.05))) +
+  theme_mkw() +
+  labs(x = "Date", y = "Victories", colour = "Player",
+       title = "PlusWord victories",
+       subtitle = str_c(start_date, " to ", end_date))
+```
+
+
 ## Player Times
 
 ```{r time_boxplots}
