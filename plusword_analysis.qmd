@@ -182,7 +182,7 @@ winning_times |>
   arrange(win_drought) |> 
   ggplot(aes(x = fct_reorder(sender, .x = win_drought), y = win_drought)) +
   geom_col(fill = bar_colour, colour = "black") +
-  geom_text(aes(label = win_drought), nudge_y = 5) +
+  geom_text(aes(label = win_drought), nudge_y = 1) +
   scale_y_continuous(breaks = scales::pretty_breaks(),
                      expand = expansion(mult = c(0, 0.05))) +
   theme_mkw() +
