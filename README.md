@@ -1,16 +1,15 @@
 PlusWord Analysis
 ================
-5/9/24
 
 ## Overall Ranking
 
 | Player         |   1 |   2 |   3 |   4 |   5 | Games |
 |:---------------|----:|----:|----:|----:|----:|------:|
-| Grace Sercombe |  48 |  25 |  21 |  13 |   0 |   107 |
-| Matt Wyatt     |  47 |  46 |  13 |   9 |   1 |   116 |
-| Gary Wyatt     |  17 |  33 |  43 |  14 |   5 |   112 |
-| Alison Wyatt   |   7 |  11 |  26 |  43 |  10 |    97 |
-| Sally Wyatt    |   1 |   2 |  10 |  12 |  23 |    48 |
+| Matt Wyatt     |  69 |  56 |  19 |  11 |   3 |   158 |
+| Grace Sercombe |  63 |  39 |  27 |  16 |   0 |   145 |
+| Gary Wyatt     |  19 |  42 |  61 |  24 |   9 |   155 |
+| Alison Wyatt   |   9 |  17 |  32 |  64 |  17 |   139 |
+| Sally Wyatt    |   4 |   4 |  18 |  17 |  35 |    78 |
 
 ![](plusword_analysis_files/figure-commonmark/total_wins-1.png)
 
