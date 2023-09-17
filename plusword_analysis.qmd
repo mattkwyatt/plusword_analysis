@@ -1,5 +1,6 @@
 ---
 title: "PlusWord Analysis"
+date: "`r format(Sys.Date(), '%d/%m/%Y')`"
 format:
   gfm:
     output-file: "README"
