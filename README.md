@@ -16,11 +16,20 @@ PlusWord Analysis
 
 ![](plusword_analysis_files/figure-commonmark/total_wins_over_time-1.png)
 
+Longest winning streaks for each player.
+
+| Player         | Longest streak |
+|:---------------|---------------:|
+| Grace Sercombe |              5 |
+| Matt Wyatt     |              5 |
+| Alison Wyatt   |              2 |
+| Gary Wyatt     |              2 |
+| Josh Pickard   |              1 |
+| Sally Wyatt    |              1 |
+
 ## Player Times
 
 ![](plusword_analysis_files/figure-commonmark/time_boxplots-1.png)
-
-![](plusword_analysis_files/figure-commonmark/mean_time_delta-1.png)
 
 ![](plusword_analysis_files/figure-commonmark/fastest_time-1.png)
 
