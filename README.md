@@ -35,6 +35,22 @@ Longest winning streaks for each player.
 
 ![](plusword_analysis_files/figure-commonmark/fastest_time_evolution-1.png)
 
+Ten fastest times overall.
+
+| Rank | Player         | Date       | Time (s) |
+|-----:|:---------------|:-----------|---------:|
+|    1 | Grace Sercombe | 2023-10-19 |       25 |
+|    2 | Matt Wyatt     | 2023-11-04 |       33 |
+|    3 | Matt Wyatt     | 2023-08-02 |       34 |
+|    3 | Matt Wyatt     | 2023-10-09 |       34 |
+|    5 | Matt Wyatt     | 2023-08-28 |       35 |
+|    5 | Grace Sercombe | 2023-09-30 |       35 |
+|    7 | Grace Sercombe | 2023-06-27 |       36 |
+|    7 | Matt Wyatt     | 2023-09-19 |       36 |
+|    7 | Matt Wyatt     | 2023-10-15 |       36 |
+|   10 | Grace Sercombe | 2023-05-06 |       37 |
+|   10 | Josh Pickard   | 2023-10-19 |       37 |
+
 ## Time since last win
 
 ![](plusword_analysis_files/figure-commonmark/days_since_last_win-1.png)

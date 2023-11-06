@@ -172,6 +172,8 @@ df |>
   ggplot(aes(x = date, y = time)) +
   geom_step() +
   geom_point(aes(colour = sender), size = 5) +
+  # geom_point(data = df |> filter(time < hms::hms(seconds = 45)),
+  #            aes(colour = sender)) +
   scale_y_continuous(breaks = scales::pretty_breaks()) +
   theme_mkw(grid = TRUE) +
   labs(x = "Date", y = "Time (seconds)", colour = "Player",
@@ -179,6 +181,17 @@ df |>
        subtitle = str_c(start_date, " to ", end_date))
 ```
 
+Ten fastest times overall.
+
+```{r ten_fastest_times}
+df |>
+  mutate(date = date(date),
+         time = as.numeric(time)) |>
+  slice_min(order_by = time, n = 10) |> 
+  mutate(rank = rank(time, ties.method = "min"), .before = date) |> 
+  select(rank, sender, date, time) |> 
+  knitr::kable(col.names = c("Rank", "Player", "Date", "Time (s)"))
+```
 
 ## Time since last win
 
