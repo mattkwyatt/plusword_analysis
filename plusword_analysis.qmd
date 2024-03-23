@@ -31,6 +31,12 @@ df <- df |>
   mutate(time = str_c(rep("00:", length(df$time)), time),
          time = hms::parse_hms(time))
 
+# Remove duplicates from slight date mismatches
+df <- df |>
+  mutate(date = date(date)) |>
+  group_by(date, sender) |>
+  summarise(time = min(time))
+
 winning_times <- df |> 
   group_by(date(date)) |> 
   filter(time == min(time)) |> 
@@ -100,7 +106,7 @@ total_wins |>
 
 Longest winning streaks for each player.
 
-```{r win streaks}
+```{r win_streaks}
 win_streaks <- winning_times |> 
   arrange(date) |> 
   pull(sender) |> 
@@ -118,14 +124,32 @@ win_streaks |>
 ## Player Times
 
 ```{r time_boxplots}
+median_time <- df |> group_by(sender) |> summarise(time = median(time))
+
 df |>
-  filter(time < hms::hms(minutes = 10)) |> 
   ggplot(aes(x = fct_reorder(sender, .x = time, .fun = "median"), y = time)) +
   geom_boxplot() +
-  scale_y_time(labels = scales::time_format(format = "%M:%S")) +
+  # geom_text(data = median_time, aes(label = time), nudge_y = 15, size = 3) +
+  scale_y_time(labels = scales::time_format(format = "%M:%S"),
+               limits = c(0, hms::hms(minutes = 10))) +
   theme_mkw(grid = TRUE) +
   labs(x = "Player", y = "Time (minutes)",
        title = "PlusWord finishing times (times over 10 minutes ignored)",
+       subtitle = str_c(start_date, " to ", end_date))
+```
+
+```{r moving_average_time}
+df |> 
+  group_by(sender) |>
+  mutate(rolling_mean = zoo::rollmean(time, k = 31, fill=NA)) |>
+  ggplot(aes(x = date, colour = sender)) +
+  geom_point(aes(y = time), alpha = 0.1) +
+  geom_line(aes(y = rolling_mean)) +
+  scale_y_time(labels = scales::time_format(format = "%M:%S"),
+               limits = c(0, hms::hms(minutes = 5))) +
+  theme_mkw() +
+  labs(x = "Date", y = "Time (minutes)", colour = "Player",
+       title = "Rolling mean PlusWord finishing times",
        subtitle = str_c(start_date, " to ", end_date))
 ```
 

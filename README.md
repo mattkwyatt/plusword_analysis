@@ -1,16 +1,15 @@
-PlusWord Analysis
-================
+# PlusWord Analysis
 
 ## Overall Ranking
 
-| Player         |   1 |   2 |   3 |   4 |   5 |   6 | Games |
-|:---------------|----:|----:|----:|----:|----:|----:|------:|
-| Matt Wyatt     |  85 |  63 |  18 |  11 |   4 |   1 |   182 |
-| Grace Sercombe |  70 |  50 |  28 |  16 |   0 |   0 |   164 |
-| Gary Wyatt     |  20 |  35 |  65 |  37 |  18 |   4 |   179 |
-| Alison Wyatt   |   7 |  24 |  42 |  67 |  29 |   4 |   173 |
-| Sally Wyatt    |   5 |   4 |  24 |  27 |  46 |   9 |   115 |
-| Josh Pickard   |   4 |   5 |   4 |   6 |   6 |   7 |    32 |
+| Player         |   1 |   2 |   3 |   4 |   5 |   6 |   7 | Games |
+|:---------------|----:|----:|----:|----:|----:|----:|----:|------:|
+| Matt Wyatt     | 189 | 119 |  35 |  25 |   6 |   1 |   0 |   375 |
+| Grace Sercombe | 122 |  95 |  36 |  22 |   7 |   1 |   0 |   283 |
+| Gary Wyatt     |  25 |  45 | 100 |  96 |  34 |  13 |   0 |   313 |
+| Alison Wyatt   |   9 |  36 |  70 |  81 |  85 |  17 |   0 |   298 |
+| Sally Wyatt    |   7 |  11 |  37 |  61 |  58 |  36 |   0 |   210 |
+| Josh Pickard   |   4 |  13 |  16 |  14 |  17 |  12 |   1 |    77 |
 
 ![](plusword_analysis_files/figure-commonmark/total_wins-1.png)
 
@@ -20,8 +19,8 @@ Longest winning streaks for each player.
 
 | Player         | Longest streak |
 |:---------------|---------------:|
+| Matt Wyatt     |              8 |
 | Grace Sercombe |              5 |
-| Matt Wyatt     |              5 |
 | Alison Wyatt   |              2 |
 | Gary Wyatt     |              2 |
 | Josh Pickard   |              1 |
@@ -39,17 +38,16 @@ Ten fastest times overall.
 
 | Rank | Player         | Date       | Time (s) |
 |-----:|:---------------|:-----------|---------:|
-|    1 | Grace Sercombe | 2023-10-19 |       25 |
-|    2 | Matt Wyatt     | 2023-11-04 |       33 |
-|    3 | Matt Wyatt     | 2023-08-02 |       34 |
-|    3 | Matt Wyatt     | 2023-10-09 |       34 |
-|    5 | Matt Wyatt     | 2023-08-28 |       35 |
-|    5 | Grace Sercombe | 2023-09-30 |       35 |
-|    7 | Grace Sercombe | 2023-06-27 |       36 |
-|    7 | Matt Wyatt     | 2023-09-19 |       36 |
-|    7 | Matt Wyatt     | 2023-10-15 |       36 |
-|   10 | Grace Sercombe | 2023-05-06 |       37 |
-|   10 | Josh Pickard   | 2023-10-19 |       37 |
+|    1 | Matt Wyatt     | 2024-01-22 |       17 |
+|    2 | Grace Sercombe | 2023-10-19 |       25 |
+|    3 | Grace Sercombe | 2023-11-09 |       26 |
+|    4 | Matt Wyatt     | 2024-02-15 |       27 |
+|    5 | Grace Sercombe | 2024-01-22 |       28 |
+|    6 | Matt Wyatt     | 2023-11-13 |       29 |
+|    7 | Matt Wyatt     | 2024-02-26 |       30 |
+|    8 | Matt Wyatt     | 2024-01-03 |       31 |
+|    8 | Matt Wyatt     | 2024-02-19 |       31 |
+|    8 | Grace Sercombe | 2024-02-26 |       31 |
 
 ## Time since last win
 
