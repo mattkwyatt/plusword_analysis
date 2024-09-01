@@ -35,7 +35,8 @@ df <- df |>
 df <- df |>
   mutate(date = date(date)) |>
   group_by(date, sender) |>
-  summarise(time = min(time))
+  summarise(time = min(time)) |> 
+  ungroup()
 
 winning_times <- df |> 
   group_by(date(date)) |> 
@@ -191,13 +192,19 @@ df |>
 ```
 
 ```{r fastest_time_evolution}
-df |> 
+plot_df <- df |> 
   mutate(record_time = as.numeric(df$time) |> cummin()) |> 
   filter(as.numeric(time) == record_time,
-         time < hms::hms(minutes = 1)) |> 
+         time < hms::hms(minutes = 1)) 
+
+min_date = max(plot_df$date) |> date()
+max_date = now() |> date()
+min_time = plot_df$time |> as.numeric() |> min()
+  
+plot_df |> 
   ggplot(aes(x = date, y = time)) +
   geom_step() +
-  geom_segment(aes(x = max(date), y = min(time), xend = now(), yend = min(time))) +
+  annotate("segment", x = min_date, y = min_time, xend = max_date, yend = min_time) +
   geom_point(aes(colour = sender), size = 5) +
   geom_point(data = df |> filter(time < 44),
              aes(colour = sender), alpha = 0.6, size = 3) +
@@ -215,7 +222,7 @@ Ten fastest times overall.
 df |>
   mutate(date = date(date),
          time = as.numeric(time)) |>
-  slice_min(order_by = time, n = 10) |> 
+  slice_min(order_by = time, n = 10) |>
   mutate(rank = rank(time, ties.method = "min"), .before = date) |> 
   select(rank, sender, date, time) |> 
   knitr::kable(col.names = c("Rank", "Player", "Date", "Time (s)"))
